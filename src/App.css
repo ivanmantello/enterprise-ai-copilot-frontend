@@ -1,0 +1,57 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+}
+
+
+.title{
+  color: rgb(53, 141, 156);
+  font-size: 1rem;
+  text-align: center;
+  margin-top: 30px;
+}
+
+
+.app-content {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+
+.doc-panels {
+  width: 100%;
+  display: flex;
+  gap: 20px;
+  padding: 20px 40px;
+}
+
+.doc-panels > div {
+  flex: 1;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px;
+  background: #f6fdfb;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  display: flex;
+  flex-direction: column;
+}

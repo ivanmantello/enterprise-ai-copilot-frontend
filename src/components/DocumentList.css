@@ -1,0 +1,146 @@
+.document-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.document-item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  cursor: pointer;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  min-width: 0;
+}
+
+.document-item.selected {
+  border-color: #3b82f6;
+  background-color: #e0f2ff;
+}
+
+.doc-preview {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+
+.doc-name {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+.circle {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid #3b82f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  color: white;
+  background: #3b82f6;
+  flex-shrink: 0;
+}
+
+
+.delete-button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.document-card {
+  display: flex;
+  flex-direction: column;
+  height: 220px; 
+}
+
+
+.doc-title {
+  margin-top: 10;
+  margin-bottom: 15px;
+}
+
+
+.document-list {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.document-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.document-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.document-list::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 6px;
+}
+
+.document-list::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+
+.menu-container {
+  position: relative;
+}
+
+.menu-button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 4px 8px;
+}
+
+
+.menu-dropdown {
+  position: absolute;
+  right: 0;
+  top: 28px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  min-width: 120px;
+  z-index: 10;
+}
+
+
+.menu-item {
+  width: 100%;
+  border: none;
+  background: none;
+  padding: 8px 10px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.menu-item:hover {
+  background: #f3f4f6;
+}
+
+
+.menu-item.delete {
+  color: #dc2626;
+}

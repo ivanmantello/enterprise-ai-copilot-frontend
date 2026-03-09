@@ -1,0 +1,29 @@
+.toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+
+.toggle-status {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+
+.toggle-status.on {
+  color: #16a34a;
+}
+
+.toggle-status.off {
+  color: #6b7280;
+}
+
+.description{
+    font-size: .9rem;
+}
+
+.negrita{
+    font-weight: 500;
+}
