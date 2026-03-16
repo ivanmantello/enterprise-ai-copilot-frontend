@@ -14,7 +14,24 @@ interface Props {
 export const Chat = ({ selectedDocuments, optimizedMode }: Props) => {
   const [question, setQuestion] = useState("");
   const [messages, setMessages] = useState<
-    { role: "user" | "assistant"; content: string }[]
+    { role: "user" | "assistant"; 
+      content: string;
+      
+      usage?: {
+      prompt_tokens: number;
+      completion_tokens: number;
+      total_tokens: number;
+      estimated_cost_usd: number;
+      latency_ms: number;
+    };
+
+    sources?: {
+      file: string;
+      section: number;
+      chunk_id: string;
+      score: number;
+    }[];
+     }[]
   >([]);
   const [loading, setLoading] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -43,10 +60,12 @@ export const Chat = ({ selectedDocuments, optimizedMode }: Props) => {
           selectedDocuments.map((doc) => doc.id),
           optimizedMode
         );
-
+        
         const assistantMessage = {
           role: "assistant" as const,
           content: response.answer,
+          usage: response.tokens,
+          sources: response.sources
         };
 
         setMessages((prev) => [...prev, assistantMessage]);
@@ -87,9 +106,21 @@ export const Chat = ({ selectedDocuments, optimizedMode }: Props) => {
       <div className="messages">
         {messages.map((msg, index) =>
           msg.role === "assistant" ? (
-            <TypingMessage key={index} text={msg.content} role={msg.role} />
+            <TypingMessage 
+                key={index} 
+                text={msg.content} 
+                role={msg.role} 
+                usage={msg.usage}
+                sources={msg.sources}
+                />
           ) : (
-            <Message key={index} role={msg.role} content={msg.content} />
+            <Message 
+                key={index} 
+                role={msg.role} 
+                content={msg.content} 
+                usage={msg.usage}
+                sources={msg.sources}
+                />
           )
         )}
       </div>

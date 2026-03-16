@@ -1,73 +1,261 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Enterprise AI Copilot — Frontend
 
-Currently, two official plugins are available:
+Frontend interface for an AI-powered document analysis assistant built with **React + TypeScript**.
+The application allows users to upload documents, ask questions, and receive answers generated through a **Retrieval-Augmented Generation (RAG)** pipeline.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This repository contains the **user interface layer** that interacts with the backend RAG system.
 
-## React Compiler
+---
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+# Demo
 
-## Expanding the ESLint configuration
+Live demo:
+https://enterprise-ai-copilot.vercel.app/
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Example workflow:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+1. Upload one or more documents
+2. Ask a question about their contents
+3. The system retrieves relevant chunks
+4. An LLM generates an answer using the retrieved context
+5. The UI exposes explainability details such as tokens, cost and sources
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Key Features
+
+### Conversational AI Interface
+
+* Chat-based UI for asking questions about uploaded documents
+* Simulated typing for AI responses
+* Clean conversational layout
+
+### Document Management
+
+* Upload documents directly from the browser
+* List uploaded documents
+* Select which documents should be used for retrieval
+* Delete documents
+
+### RAG Explainability
+
+The interface exposes internal signals of the RAG pipeline:
+
+* LLM token usage
+* Estimated generation cost
+* Model latency
+* Retrieved document chunks
+* Retrieval similarity scores
+
+This allows users to understand **how the AI generated the response**.
+
+
+### Retrieval Modes
+
+The system supports two retrieval strategies when answering questions.
+
+#### Standard Mode
+
+The system retrieves the top-k most relevant chunks from the vector database and sends them to the LLM as context.
+
+#### Optimized Mode
+
+When "Optimized Answer Mode" is enabled in the UI, the backend activates:
+
+expand_neighbors = true
+
+This expands the retrieval window by including neighboring chunks around the most relevant ones.
+
+Example:
+
+If the most relevant chunk is:
+
+Chunk 14
+
+The system may also retrieve:
+
+Chunk 13
+Chunk 14
+Chunk 15
+
+This improves answer quality by preserving the surrounding context that may have been split during document chunking.
+
+This technique helps reduce context fragmentation, a common issue in RAG systems.
+
+---
+
+# Tech Stack
+
+Frontend:
+
+* React
+* TypeScript
+* Vite
+
+Backend:
+
+* FastAPI
+* Vector database
+* LLM API
+
+Deployment:
+
+* Frontend deployed on Vercel
+* Backend deployed on Railway
+
+AI stack:
+
+* Embedding models for semantic search
+* Vector similarity retrieval
+* Large Language Model for answer generation
+
+---
+
+# Project Structure
+
+src
+ ├ components
+ │
+ │ Chat.tsx
+ │ Message.tsx
+ │ TypingMessage.tsx
+ │ FileUpload.tsx
+ │ DocumentList.tsx
+ │
+ ├ services
+ │
+ │ api.ts
+ │
+ ├ types
+ │
+ │ api.ts
+ │
+ ├ App.tsx
+ ├ main.tsx
+ └ index.css
+
+components contain the UI logic,
+services manage communication with the backend API.
+
+---
+
+# API Integration
+
+The frontend communicates with the backend using REST endpoints.
+
+Main endpoint:
+
+POST /ask
+
+Example request:
+
+{
+"question": "What is double burden of malnutrition?",
+"document_ids": ["doc_123"],
+"expand_neighbors": true
+}
+
+Example response:
+
+{
+"answer": "...",
+"sources": [...],
+"tokens": {...},
+"latency_ms": 2100
+}
+
+Other endpoints:
+
+POST /upload
+
+Uploads a document, processes it into chunks, generates embeddings, and stores them in the vector database.
+
+
+GET /documents
+
+Returns the list of documents currently indexed in the system.
+
+
+DELETE /documents/{document_id}
+
+Removes a document and its associated chunks from the vector database.
+
+---
+
+# Environment Variables
+
+Create a `.env` file in the project root and configure the backend API URL.
+
+```
+VITE_API_URL=https://your-backend-url
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The backend is expected to expose the RAG API endpoints used by the frontend.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
+
+# Local Development
+
+Clone the repository:
+
+git clone https://github.com/ivanmantello/enterprise-ai-copilot-frontend.git
+
+Install dependencies:
+
+npm install
+
+Run the development server:
+
+npm run dev
+
+---
+
+# RAG Architecture (High-Level)
+
+User Question
+↓
+Vector Search (top-k chunks)
+↓
+Optional Neighbor Expansion
+↓
+Context Assembly
+↓
+LLM Answer Generation
+↓
+Explainability Metadata
+
+---
+
+# Why This Project
+
+This project demonstrates practical skills in:
+
+* AI application development
+* Retrieval-Augmented Generation systems
+* Full-stack integration with LLM APIs
+* Vector search architectures
+* AI explainability and observability
+
+The goal was to build a **transparent AI assistant**, exposing internal signals like token usage, retrieval scores, and document sources.
+
+---
+
+# Future Improvements
+
+Potential next steps:
+
+* Streaming responses from the LLM
+* Highlighting retrieved text chunks
+* RAG debugging panel
+* Authentication and user document isolation
+* Multi-document ranking visualization
+
+---
+
+# Author
+
+Built as part of a portfolio project focused on applied AI systems and RAG architecture.
+
+
