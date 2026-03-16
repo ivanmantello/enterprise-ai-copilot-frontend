@@ -62,7 +62,7 @@ export const Message = ({ role, content, usage, sources  }: Props) => {
                         <p><strong>Fuente:</strong> {s.file}</p>
                         <p>Sección {s.section}</p>
                         <p>Chunk {s.chunk_id.slice(0,8)}...</p>
-                        <p>Score: {s.score?.toFixed(3)}</p>
+                        <p>Distance Score: {s.score?.toFixed(3)}</p>
 
                       </div>
                     ))}

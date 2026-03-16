@@ -114,29 +114,30 @@ AI stack:
 
 # Project Structure
 
-src
- ├ components
- │
- │ Chat.tsx
- │ Message.tsx
- │ TypingMessage.tsx
- │ FileUpload.tsx
- │ DocumentList.tsx
- │
- ├ services
- │
- │ api.ts
- │
- ├ types
- │
- │ api.ts
- │
- ├ App.tsx
- ├ main.tsx
- └ index.css
 
-components contain the UI logic,
-services manage communication with the backend API.
+frontend
+    │
+    ├── src
+    │   ├── components
+    │   │   ├── Chat.tsx
+    │   │   ├── DocumentSelector.tsx
+    │   │   ├── TypingMessage.tsx
+    │   │   └── Message.tsx
+    │   │
+    │   ├── services
+    │   │   └── api.ts
+    │   │ 
+    │   ├── types
+    │   │   └── api.ts    
+    │   │
+    │   ├── App.tsx
+    │   └── main.tsx
+    │
+    ├── package.json
+    └── vite.config.ts
+
+/components contain the UI logic,
+/services manage communication with the backend API.
 
 ---
 
