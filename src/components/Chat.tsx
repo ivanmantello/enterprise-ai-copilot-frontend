@@ -39,7 +39,7 @@ export const Chat = ({ selectedDocuments, optimizedMode }: Props) => {
   useEffect(() => {
     const initialMessage = {
       role: "assistant" as const,
-      content: "¡Hola! Soy una IA independiente, carga o selecciona documentos y pregunta lo que quieras sobre ellos.",
+      content: "Hello! I'm an independent AI. Upload or select documents and ask me anything you want about them.",
     };
     setMessages([initialMessage]);
   }, []);
@@ -72,7 +72,7 @@ export const Chat = ({ selectedDocuments, optimizedMode }: Props) => {
       } catch {
         setMessages((prev) => [
           ...prev,
-          { role: "assistant", content: "Error consultando al backend." },
+          { role: "assistant", content: "Error querying the backend." },
         ]);
       } finally {
         setLoading(false);
@@ -131,7 +131,7 @@ export const Chat = ({ selectedDocuments, optimizedMode }: Props) => {
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="Haz una pregunta..."
+          placeholder="Ask a question..."
           className="chat-input"
         />
           
@@ -140,7 +140,7 @@ export const Chat = ({ selectedDocuments, optimizedMode }: Props) => {
           disabled={loading}
           className="send-button"
         >
-          Enviar
+          Send
         </button>
       </div>
     </div>

@@ -37,7 +37,7 @@ export const Message = ({ role, content, usage, sources  }: Props) => {
               className="details-button"
               onClick={() => setExpanded(!expanded)}
             >
-              Detalle
+              Detail
             </button>
 
             {expanded && (
@@ -46,21 +46,21 @@ export const Message = ({ role, content, usage, sources  }: Props) => {
                 <p>Prompt tokens: {usage.prompt_tokens}</p>
                 <p>Completion tokens: {usage.completion_tokens}</p>
                 <p>Total tokens: {usage.total_tokens}</p>
-                <p>Coste estimado: ${usage.estimated_cost_usd}</p>
-                <p>Latencia LLM: {usage.latency_ms} ms</p>
+                <p>Estimated cost: ${usage.estimated_cost_usd}</p>
+                <p>LLM latency: {usage.latency_ms} ms</p>
 
 
 
                 {sources && sources.length > 0 && (
                   <div className="message-sources">
 
-                    <p className="sources-title">Fuentes utilizadas</p>
+                    <p className="sources-title">Sources used</p>
 
                     {sources.map((s, i) => (
                       <div key={i} className="source-item">
 
-                        <p><strong>Fuente:</strong> {s.file}</p>
-                        <p>Sección {s.section}</p>
+                        <p><strong>Source:</strong> {s.file}</p>
+                        <p>Section {s.section}</p>
                         <p>Chunk {s.chunk_id.slice(0,8)}...</p>
                         <p>Distance Score: {s.score?.toFixed(3)}</p>
 

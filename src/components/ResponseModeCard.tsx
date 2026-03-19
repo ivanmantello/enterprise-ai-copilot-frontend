@@ -8,11 +8,11 @@ interface Props {
 export const ResponseModeCard = ({ optimized, onToggle }: Props) => {
   return (
     <div className="response-card">
-      <h3>Respuesta optimizada</h3>
+      <h3>Optimized response</h3>
 
       <p className="description">
-        Activa <span className="negrita">expansión de vecinos</span> para obtener mayor contexto del documento.
-        Puede generar respuestas más completas.
+        Enable <span className="negrita">neighbor expansion</span> to get more document context.
+        This can generate more complete responses.
       </p>
 
       <div className="toggle-row">
@@ -26,7 +26,7 @@ export const ResponseModeCard = ({ optimized, onToggle }: Props) => {
         </label>
 
         <span className={`toggle-status ${optimized ? "on" : "off"}`}>
-          {optimized ? "Activado" : "Desactivado"}
+          {optimized ? "Activated" : "Deactivated"}
         </span>
       </div>
     </div>

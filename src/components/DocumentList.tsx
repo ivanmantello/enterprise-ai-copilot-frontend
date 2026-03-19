@@ -21,7 +21,7 @@ const [openMenu, setOpenMenu] = useState<string | null>(null);
 
   return (
     <div className="document-card">
-      <h3 className="doc-title">Archivos de contexto seleccionados</h3>
+      <h3 className="doc-title">Selected context files</h3>
 
       <div className="document-list">
         {documents.map((doc) => {

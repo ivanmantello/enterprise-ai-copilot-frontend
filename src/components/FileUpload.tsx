@@ -36,9 +36,9 @@ export const FileUpload = ({ onUpload }: Props) => {
 
   return (
     <div>
-      <h3>Subir Documento</h3>
+      <h3>Upload Document</h3>
       <input type="file" onChange={handleUpload} />
-      {loading && <p>Procesando...</p>}
+      {loading && <p>Processing...</p>}
       {message && <p>{message}</p>}
     </div>
   );
