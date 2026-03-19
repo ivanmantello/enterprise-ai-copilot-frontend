@@ -25,10 +25,10 @@ export const FileUpload = ({ onUpload }: Props) => {
         type: file.type,
         // previewUrl: response.previewUrl, 
       };
-      setMessage(`Documento procesado. Chunks: ${response.chunks_created}`);
+      setMessage(`Processed document. Chunks: ${response.chunks_created}`);
        if (onUpload) onUpload(doc); 
     } catch (error: any) {
-      setMessage("Error subiendo documento.");
+      setMessage("Error uploading document.");
     } finally {
       setLoading(false);
     }
@@ -37,7 +37,21 @@ export const FileUpload = ({ onUpload }: Props) => {
   return (
     <div>
       <h3>Upload Document</h3>
-      <input type="file" onChange={handleUpload} />
+      <label
+        htmlFor="file-upload"
+        style={{
+          display: "inline-block",
+          padding: "8px 16px",
+          backgroundColor: "rgb(53, 141, 156)",
+          color: "white",
+          borderRadius: "4px",
+          cursor: "pointer",
+          marginBottom: "8px",
+        }}
+      >
+        Select File
+      </label>
+      <input type="file" onChange={handleUpload} style={{ display: "none" }}/>
       {loading && <p>Processing...</p>}
       {message && <p>{message}</p>}
     </div>
