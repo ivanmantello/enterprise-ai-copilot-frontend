@@ -63,7 +63,7 @@ const [openMenu, setOpenMenu] = useState<string | null>(null);
                         setOpenMenu(null);
                       }}
                     >
-                      Eliminar
+                      Delete
                     </button>
                   </div>
                 )}
