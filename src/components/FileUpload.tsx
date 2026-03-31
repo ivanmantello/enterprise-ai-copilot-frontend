@@ -51,7 +51,12 @@ export const FileUpload = ({ onUpload }: Props) => {
       >
         Select File
       </label>
-      <input type="file" onChange={handleUpload} style={{ display: "none" }}/>
+      <input
+        id="file-upload"
+        type="file"
+        onChange={handleUpload}
+        style={{ display: "none" }}
+      />
       {loading && <p>Processing...</p>}
       {message && <p>{message}</p>}
     </div>
